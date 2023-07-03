@@ -11,7 +11,7 @@ jobs:
       - run:
           name: Validate environment
           command: |
-            apt-get -y install yq
+            apk add install yq
             sh ./scripts/validate-env.sh "./circleci/config.yml" "service-db-migrate-staging" "service-db-migrate-prod"
 
   service-db-migrate-staging:
