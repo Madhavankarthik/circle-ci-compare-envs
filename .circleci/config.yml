@@ -1,0 +1,59 @@
+version: 2.1
+
+jobs:
+
+  validate-environment:
+    working_directory: ~/repo
+    docker:
+      - image: cimg/base:2021.04
+    steps:
+      - checkout
+      - run:
+          name: Validate environment
+          command: |
+            sh ./scripts/validate-env.sh "./circleci/config.yml" "service-db-migrate-staging" "service-db-migrate-prod"
+
+  service-db-migrate-staging:
+    working_directory: ~/repo
+    docker:
+      - image: cimg/base:2021.04
+    steps:
+      - checkout
+      - run:
+          name: Running staging
+          command: |
+            echo "Staging migration"
+    environment:
+      - GOOGLE_PROJECT_ID: staging-proj
+      - GOOGLE_COMPUTE_ZONE: staging-zone
+      - ENV: staging_migration
+
+
+  service-db-migrate-prod:
+    working_directory: ~/repo
+    docker:
+      - image: cimg/base:2021.04
+    steps:
+      - checkout
+      - run:
+          name: Running production
+          command: |
+            echo "Production migration"
+    environment:
+      - GOOGLE_PROJECT_ID: prod-project
+      - GOOGLE_COMPUTE_ZONE: prod-zone
+      - ENV: prod_migration
+
+
+
+workflows:
+
+  service:
+    jobs:
+      - validate-environment
+      - service-db-migrate-staging:
+          requires:
+            - validate-environment
+      - service-db-migrate-prod:
+          requires:
+            - service-db-migrate-staging
