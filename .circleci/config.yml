@@ -5,7 +5,7 @@ jobs:
   validate-environment:
     working_directory: ~/repo
     docker:
-      - image: cimg/base:2021.04
+      - image: docker:stable
     steps:
       - checkout
       - run:
@@ -17,7 +17,7 @@ jobs:
   service-db-migrate-staging:
     working_directory: ~/repo
     docker:
-      - image: cimg/base:2021.04
+      - image: docker:stable
     steps:
       - checkout
       - run:
@@ -33,7 +33,7 @@ jobs:
   service-db-migrate-prod:
     working_directory: ~/repo
     docker:
-      - image: cimg/base:2021.04
+      - image: docker:stable
     steps:
       - checkout
       - run:
