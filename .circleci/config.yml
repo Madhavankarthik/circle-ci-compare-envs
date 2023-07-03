@@ -5,19 +5,20 @@ jobs:
   validate-environment:
     working_directory: ~/repo
     docker:
-      - image: docker:stable
+      - image: debian:trixie-slim
     steps:
       - checkout
       - run:
           name: Validate environment
           command: |
-            apk add install yq
+            sudo apt update
+            apt install yq -y
             sh ./scripts/validate-env.sh "./circleci/config.yml" "service-db-migrate-staging" "service-db-migrate-prod"
 
   service-db-migrate-staging:
     working_directory: ~/repo
     docker:
-      - image: docker:stable
+      - image: debian:trixie-slim
     steps:
       - checkout
       - run:
@@ -33,7 +34,7 @@ jobs:
   service-db-migrate-prod:
     working_directory: ~/repo
     docker:
-      - image: docker:stable
+      - image: debian:trixie-slim
     steps:
       - checkout
       - run:
