@@ -6,7 +6,7 @@ JOB_2_NAME=${3}
 
 # Parse YAML file and extract environment variables
 get_env_var_names() {
-  yq eval '.jobs.'$1'.environment | keys[]' .circleci/config.yml
+  yq eval '.jobs.'$1'.environment | keys[]' .circleci/config.yml --printMode p --nullOutput null
 }
 
 # Compare environment variables
