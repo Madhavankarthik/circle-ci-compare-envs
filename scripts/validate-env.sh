@@ -2,25 +2,20 @@
 
 FILE_NAME=${1}
 JOB_1_NAME=${2}
-JOB_2_ENV_NAME=${3}
+JOB_2_NAME=${3}
 
 # Parse YAML file and extract environment variables
 get_env_var_names() {
-  local file="$1"
-  yq eval '.jobs.'$2'.environment[] | split(":")[0]' "$file"
+  yq eval '.jobs.'$2'.environment[] | split(":")[0]' $FILE_NAME
 }
 
 # Compare environment variables
 compare_env_vars() {
-  local file="$1"
-  local job1="$2"
-  local job2="$3"
-
   # Get environment variables for job1
-  env_vars1=$(get_env_var_names "$file" "$job1")
+  env_vars1=$(get_env_var_names "$JOB_1_NAME")
 
   # Get environment variables for job2
-  env_vars2=$(get_env_var_names "$file" "$job2")
+  env_vars2=$(get_env_var_names "$JOB_2_NAME")
 
   # Compare environment variables
   if [[ "$env_vars1" == "$env_vars2" ]]; then
@@ -30,4 +25,4 @@ compare_env_vars() {
   fi
 }
 
-compare_env_vars "$FILE_NAME" "$JOB_1_NAME" "$JOB_2_ENV_NAME"
+compare_env_vars
