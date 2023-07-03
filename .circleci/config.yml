@@ -11,7 +11,7 @@ jobs:
       - run:
           name: Validate environment
           command: |
-            sudo apt update
+            apt update
             apt install yq -y
             sh ./scripts/validate-env.sh "./circleci/config.yml" "service-db-migrate-staging" "service-db-migrate-prod"
 
