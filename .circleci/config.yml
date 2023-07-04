@@ -43,7 +43,7 @@ jobs:
     environment:
       - GOOGLE_PROJECT_ID: prod-project
       - GOOGLE_COMPUTE_ZONE: prod-zone
-      - ENVS: prod_migration
+      - ENV: prod_migration
 
 
 
