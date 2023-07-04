@@ -16,6 +16,8 @@ compare_env_vars() {
     echo "Environment variables names for $JOB_1_NAME and $JOB_2_NAME are the same."
   else
     echo "Environment variables names for $JOB_1_NAME and $JOB_2_NAME are different."
+    echo "Environment variables names for $JOB_1_NAME: $env_vars1"
+    echo "Environment variables names for $JOB_2_NAME: $env_vars2"
     exit 1
   fi
 }
