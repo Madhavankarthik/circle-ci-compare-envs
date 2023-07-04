@@ -12,7 +12,7 @@ jobs:
           name: Validate environment
           command: |
             apk add yq
-            sh ./scripts/validate-env.sh "./.circleci/config.yml" "service-db-migrate-staging" "service-db-migrate-prod"
+            sh ./scripts/validate-env.sh "./.circleci/config.yml" "staging" "prod"
 
   staging:
     working_directory: ~/repo
