@@ -13,7 +13,7 @@ jobs:
           command: |
             apt update
             apt install yq -y
-            sh ./scripts/validate-env.sh "./circleci/config.yml" "service-db-migrate-staging" "service-db-migrate-prod"
+            sh ./scripts/validate-env.sh "./.circleci/config.yml" "service-db-migrate-staging" "service-db-migrate-prod"
 
   service-db-migrate-staging:
     working_directory: ~/repo

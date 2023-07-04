@@ -6,22 +6,18 @@ JOB_2_NAME=${3}
 
 # Parse YAML file and extract environment variables
 get_env_var_names() {
-  yq eval '.jobs.'$1'.environment | keys[]' .circleci/config.yml --printMode p --nullOutput null
+  yq eval '.jobs.'$1'.environment[] | keys' $FILE_NAME
 }
 
-# Compare environment variables
 compare_env_vars() {
-  # Get environment variables for job1
-  env_vars1=$(yq eval '.jobs.service-db-migrate-staging.environment[].split(":")[0]' ./.circleci/config.yml)
-
-  # Get environment variables for job2
-  env_vars2=$(yq eval '.jobs.service-db-migrate-staging.environment[].split(":")[0]' ./.circleci/config.yml)
-
-  # Compare environment variables
+  env_vars1=$(get_env_var_names "$JOB_1_NAME")
+  echo "$env_vars1"
+  env_vars2=$(get_env_var_names "$JOB_2_NAME")
+  echo "$env_vars2"
   if [[ "$env_vars1" == "$env_vars2" ]]; then
-    echo "Environment variables names for $job1 and $job2 are the same."
+    echo "Environment variables names for $JOB_1_NAME and $JOB_2_NAME are the same."
   else
-    echo "Environment variables names for $job1 and $job2 are different."
+    echo "Environment variables names for $JOB_1_NAME and $JOB_2_NAME are different."
   fi
 }
 
