@@ -6,7 +6,7 @@ JOB_2_NAME=${3}
 
 # Parse YAML file and extract environment variables
 get_env_var_names() {
-  yq eval '.jobs.'$1'.environment[] | keys' $FILE_NAME
+  yq eval '.jobs.'$1'.environment[] | keys' "$FILE_NAME"
 }
 
 compare_env_vars() {
